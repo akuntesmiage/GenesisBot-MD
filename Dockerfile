@@ -23,11 +23,11 @@ RUN npm install
 # Copy all files to the container
 COPY . .
 
-# Make start.js executable
+# Make start.sh executable
 RUN chmod +x start.sh
 
 # Expose port 5000 for the app
 EXPOSE 5000
 
-# Use start.js to run the bot and handle automatic restarts
+# Run start.sh to handle bot restarts
 CMD ["./start.sh"]
