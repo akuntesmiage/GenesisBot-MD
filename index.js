@@ -81,4 +81,4 @@ async function start(files) {
   }
 }
 
-start(['masha.js'])
+start(['index.js'])
