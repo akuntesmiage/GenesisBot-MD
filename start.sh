@@ -1,9 +1,8 @@
 #!/bin/bash
-
 # Infinite loop to restart the bot in case of exit
 while true; do
   echo "Starting the bot..."
-  node index.js  # Replace this with the actual command to start your bot
+  node index.js  # Pastikan file utama bot adalah index.js
   
   EXIT_CODE=$?
   echo "Bot exited with code: $EXIT_CODE"
