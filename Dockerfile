@@ -24,10 +24,10 @@ RUN npm install
 COPY . .
 
 # Make start.js executable
-RUN chmod +x start.js
+RUN chmod +x start.sh
 
 # Expose port 5000 for the app
 EXPOSE 5000
 
 # Use start.js to run the bot and handle automatic restarts
-CMD ["./start.js"]
+CMD ["./start.sh"]
