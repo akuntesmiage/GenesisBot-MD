@@ -1,35 +1,33 @@
-# Use Node.js version 18.18.0 based on Debian Buster
-FROM node:18.18.0-buster
+# Use Node.js LTS based on Debian Buster
+FROM node:lts-buster
 
 # Update repositories, install dependencies, and clean cache
 RUN apt-get update && \
-    apt-get install -y \
-    ffmpeg \
-    imagemagick \
-    webp && \
-    apt-get upgrade -y && \
-    rm -rf /var/lib/apt/lists/*
+  apt-get install -y \
+  ffmpeg \
+  imagemagick \
+  webp && \
+  apt-get upgrade -y && \
+  rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json first
-COPY package.json ./ 
-
-# Copy package-lock.json if available
-COPY package-lock.json* ./ 
+# Copy package.json and package-lock.json first (for caching npm install)
+COPY package.json ./
+COPY package-lock.json* ./
 
 # Install Node.js dependencies
-RUN npm config set engine-strict false && npm install --legacy-peer-deps
+RUN npm install
 
 # Copy all files to the container
-COPY . . 
+COPY . .
 
-# Ensure `start.sh` is executable
-RUN chmod +x /app/start.sh
+# Make start.js executable
+RUN chmod +x start.js
 
-# Expose port 5000 for your app
+# Expose port 5000 for the app
 EXPOSE 5000
 
-# Run the start script
-CMD ["/app/start.sh"]
+# Use start.js to run the bot and handle automatic restarts
+CMD ["./start.js"]
